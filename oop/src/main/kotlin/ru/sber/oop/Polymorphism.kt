@@ -7,7 +7,7 @@ interface Fightable {
     val powerType: String
     var healthPoints: Int
     val damageRoll: Int
-        get() =  Random.nextInt()
+        get() =  Random.nextInt(0, 100)
     fun attack(opponent: Fightable): Int
 }
 
@@ -30,8 +30,9 @@ abstract class Monster (
     override val powerType: String,
     override var healthPoints: Int) : Fightable {
     override fun attack(opponent: Fightable): Int {
-        opponent.healthPoints -= damageRoll
-        return damageRoll
+        val damage = damageRoll
+        opponent.healthPoints -= damage
+        return damage
     }
 }
 
@@ -43,5 +44,4 @@ class Goblin(name: String, description: String,
         get() = super.damageRoll / 2
 
 }
-
 

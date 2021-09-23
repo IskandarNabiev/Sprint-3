@@ -22,22 +22,19 @@ class Archivator {
         val buffer: ByteArray
         val zipEntry: ZipEntry
 
-        try {
-            val output  = ZipOutputStream(FileOutputStream(zipFilePath))
-            val input = FileInputStream(filePath)
 
-            input.use {
-                buffer = ByteArray(input.available())
-                input.read(buffer)
-            }
+        val output  = ZipOutputStream(FileOutputStream(zipFilePath))
+        val input = FileInputStream(filePath)
 
-            output.use {
-                zipEntry = ZipEntry(filePath)
-                output.write(buffer)
-                output.closeEntry()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        input.use {
+            buffer = ByteArray(input.available())
+            input.read(buffer)
+        }
+
+        output.use {
+            zipEntry = ZipEntry(filePath)
+            output.write(buffer)
+            output.closeEntry()
         }
 
     }
@@ -52,21 +49,18 @@ class Archivator {
         val zipFilePath = "io/logfile.zip"
         val buffer: ByteArray
 
-        try {
-            val inputStream = ZipInputStream(FileInputStream(zipFilePath))
-            val outputStream = FileOutputStream(filePath)
 
-            inputStream.use{
-                inputStream.nextEntry
-                buffer = inputStream.readBytes()
-                inputStream.closeEntry()
-            }
+        val inputStream = ZipInputStream(FileInputStream(zipFilePath))
+        val outputStream = FileOutputStream(filePath)
 
-            outputStream.use {
-                outputStream.write(buffer)
-            }
-        }catch (e: Exception){
-            e.printStackTrace()
+        inputStream.use{
+            inputStream.nextEntry
+            buffer = inputStream.readBytes()
+            inputStream.closeEntry()
+        }
+
+        outputStream.use {
+            outputStream.write(buffer)
         }
 
         }
